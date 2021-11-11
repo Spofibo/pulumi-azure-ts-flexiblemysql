@@ -16,14 +16,14 @@ const password = config.get("password") || new random.RandomPassword("pw", {
 /* RG */
 /******/
 
-export const resourceGroup = new resources.ResourceGroup("rg", {
+const resourceGroup = new resources.ResourceGroup("rg", {
     location: 'EastUS'
 })
 
 /**************/
 /* NETWORKING */
 /**************/
-export const virtualNetwork = new network.VirtualNetwork("vnet", {
+const virtualNetwork = new network.VirtualNetwork("vnet", {
     location: resourceGroup.location,
     resourceGroupName: resourceGroup.name,
     addressSpace: {
@@ -76,3 +76,9 @@ const mysqlFlexibleServer = new mysql.FlexibleServer("mysql", {
 }, {
     dependsOn: [privateZone, virtualNetworkLink],
 });
+
+/***********/
+/* OUTPUTS */
+/***********/
+
+export const mysqlFqdn = mysqlFlexibleServer.fqdn
